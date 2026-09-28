@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Aussage zur insolvenzrechtlichen Überschuldung (Ergebnisspalte „Insolvenz“)
+# Erhaltener Anfang des Prompts: „Unternehmen mit negativem Eigenkapital müssen in Ö…“

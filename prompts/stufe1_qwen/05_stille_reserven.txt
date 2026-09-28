@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Verweis auf stille Reserven oder höhere Vermögenswerte (Ergebnisspalte „Stille Reserven“)
+# Erhaltener Anfang des Prompts: „Lies den folgenden Anhangtext und prüfe: Werden st…“

@@ -1,0 +1,36 @@
+Analysiere folgenden Anhangtext zu negativem Eigenkapital:
+
+---
+{anhangtext}
+---
+
+Extrahiere ALLE Begründungen im folgenden JSON-Format:
+
+{
+  "begruendungen": [
+    {
+      "typ": "Kurze Bezeichnung (max 5 Wörter)",
+      "zitat": "Exaktes Zitat aus dem Text",
+      "kategorie": "VERMÖGEN|FINANZIERUNG|PROGNOSE|HAFTUNG|RANGRUECKTRITT|SONSTIGE",
+      "quantifiziert": true/false,
+      "betrag_eur": null oder Zahl,
+      "details": "Zusätzliche relevante Details (optional)"
+    }
+  ],
+  "meta": {
+    "hat_begruendung": true/false,
+    "nur_standardsatz": true/false,
+    "insolvenz_indiziert": true/false,
+    "qualitaet": "SUBSTANZIELL|PAUSCHAL|LEER"
+  }
+}
+
+KATEGORIEN-ERKLÄRUNG:
+- VERMÖGEN: Stille Reserven, Bewertungsdifferenzen, Aktivseitige Argumente
+- FINANZIERUNG: Gesellschafterzuschüsse, Kapitalmaßnahmen, Einlagen
+- PROGNOSE: Fortbestehensprognose, Zukunftserwartungen, Planrechnungen
+- HAFTUNG: Patronatserklärungen, Bürgschaften, Garantien Dritter
+- RANGRUECKTRITT: Rangrücktrittserklärungen, Nachrangigkeit, Forderungsverzicht
+- SONSTIGE: Alles andere
+
+Antworte NUR mit dem JSON-Objekt, keine weiteren Erklärungen.

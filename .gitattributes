@@ -1,0 +1,2 @@
+# Einheitliche Zeilenenden (LF), damit die Prompts byte-genau bleiben
+* text=auto eol=lf

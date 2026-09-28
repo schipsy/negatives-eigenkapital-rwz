@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Patronats- bzw. Haftungserklärung Dritter (Ergebnisspalte „Patronatserklärung“)
+# Erhaltener Anfang des Prompts: „Lies den folgenden Anhangtext und prüfe: Wird eine…“

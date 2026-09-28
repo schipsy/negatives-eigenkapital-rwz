@@ -1,0 +1,20 @@
+{
+  "name": "negatives-eigenkapital-rwz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Code zum Beitrag „Anhangangaben zum negativen Eigenkapital – Eine KI-gestützte Analyse“ (RWZ): HVD-Abruf und Stufe 1",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "hvd-abruf": "node 01_hvd_abruf/hvd_abruf.js",
+    "stufe1": "node 02_klassifikation_stufe1_qwen/klassifikation_stufe1.js"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.10",
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  }
+}

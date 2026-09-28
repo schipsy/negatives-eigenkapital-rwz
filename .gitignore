@@ -1,0 +1,14 @@
+# Daten, Ergebnisse und Zugangsdaten werden nicht versioniert
+data/
+output/
+.env
+*.pkl
+*.xlsx
+*.csv
+*.ndjson
+*.log
+
+# Abhängigkeiten und Laufzeitdateien
+node_modules/
+__pycache__/
+.venv/

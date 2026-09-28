@@ -1,0 +1,4 @@
+Lies den folgenden Anhangtext und prüfe: Wird irgendeine Erwähnung stiller Reserven gemacht (auch Synonyme: „stille Rücklagen“, „hidden reserves“; auch wenn „aufgedeckt/aufgelöst/gebildet“ erwähnt wird; Seite egal – Aktiv oder Passiv muss nicht genannt sein)?
+Wenn Ja → antworte 1. Wenn verneint („keine stillen Reserven“) oder nur „stille Lasten“ erwähnt werden oder nichts dazu steht → antworte 0.
+Antworte nur mit 0 oder 1.
+Anhangtext:

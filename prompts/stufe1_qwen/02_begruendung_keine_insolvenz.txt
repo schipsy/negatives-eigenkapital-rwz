@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Begründung, warum keine insolvenzrechtliche Überschuldung vorliegt (Ergebnisspalte „Begründung keine Insolvenz“)
+# Erhaltener Anfang des Prompts: „Unternehmen mit negativem Eigenkapital müssen in Ö…“

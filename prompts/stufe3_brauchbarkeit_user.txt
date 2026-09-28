@@ -1,0 +1,39 @@
+ANHANGTEXT (Volltext, Original aus Firmenbuch):
+---
+{anhangtext}
+---
+
+BEREITS EXTRAHIERTE BEGRÜNDUNGEN (Strukturhilfe):
+{begruendungen_json}
+
+NEGATIVES EIGENKAPITAL DES UNTERNEHMENS: {neg_ek_eur} EUR
+
+WICHTIG – wende den Entscheidungsalgorithmus an:
+Step 1: Volltext lesen.
+Step 2: DECISION RULE 1 prüfen. Reine Tatsachenbeschreibung oder methodisch unzulässig
+        → UNBRAUCHBAR.
+Step 3: Ansonsten DECISION RULE 2 prüfen. Mindestens eine Konstellation (a)-(f)
+        vollständig erfüllt? → EHER BRAUCHBAR.
+Step 4: Ansonsten → EHER UNBRAUCHBAR.
+
+Antwortformat:
+{
+  "begruendungen_bewertung": [
+    {
+      "typ": "...",
+      "kategorie": "VERMÖGEN|FINANZIERUNG|PROGNOSE|HAFTUNG|RANGRUECKTRITT|SONSTIGE",
+      "kriterien": {"K1_quantifizierung": true|false, "K2_qualif_rangruecktritt": true|false|null, "K3_bonitaet": true|false|null, "K4_realisierbarkeit": true|false|null, "K5_konkrete_massnahmen": true|false|null, "K6_fbp_substanz": true|false|null, "K7_verbindlichkeit": true|false|null},
+      "pflichtkriterien_erfuellt": true|false,
+      "einzelbewertung": "EHER BRAUCHBAR|EHER UNBRAUCHBAR|UNBRAUCHBAR",
+      "begruendung": "..."
+    }
+  ],
+  "decision_rule_1_passed": true|false,
+  "konstellation_erfuellt": "a"|"b"|"c"|"d"|"e"|"f"|"keine",
+  "gesamturteil": {
+    "stufe": "EHER BRAUCHBAR|EHER UNBRAUCHBAR|UNBRAUCHBAR",
+    "score": 0-10,
+    "mangelprofil": ["..."],
+    "kommentar": "..."
+  }
+}

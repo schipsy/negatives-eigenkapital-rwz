@@ -1,0 +1,5 @@
+Lies den folgenden Anhangtext und prüfe: Werden stille Reserven erwähnt?
+1, wenn „stille Reserven“/„stille Rücklagen“/„hidden reserves“ oder deren Vorhandensein/Aufdeckung/Auflösung erwähnt werden (Ort/Höhe optional).
+0, wenn nichts dazu steht.
+Werte nur den Anhangtext; keine freien Schlussfolgerungen. Bei Unsicherheit → 0. Antworte exakt 0 oder 1.
+Anhangtext:

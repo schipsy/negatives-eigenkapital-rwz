@@ -1,0 +1,7 @@
+numpy
+openai>=1.0
+openpyxl
+pandas
+python-dotenv
+requests
+scikit-learn

@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Gesellschafterdarlehen bzw. -finanzierung (Ergebnisspalte „Gesellschafterdarlehen“)
+# Erhaltener Anfang des Prompts: „Lies den folgenden Anhangtext und prüfe: Wird ein…“

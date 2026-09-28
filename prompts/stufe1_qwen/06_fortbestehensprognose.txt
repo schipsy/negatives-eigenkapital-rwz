@@ -1,0 +1,3 @@
+# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
+# Merkmal: Verweis auf eine positive Fortbestehensprognose (Ergebnisspalte „Fortbestehensprognose“)
+# Erhaltener Anfang des Prompts: „Lies den folgenden Anhangtext und prüfe: Wird eine…“
