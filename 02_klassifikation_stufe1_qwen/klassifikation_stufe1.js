@@ -1,22 +1,28 @@
 'use strict';
 /**
- * Stufe 1: deduktive Klassifikation mit einem Qwen-Modell, lokal über Ollama.
+ * Stufe 1: deduktive Klassifikation mit Qwen3 (8 Mrd. Parameter; qwen3:8b),
+ * lokal über Ollama.
  *
  * Jede Anhangangabe wird mit jedem Prompt einzeln an das Modell geschickt;
  * die Nutzernachricht besteht aus dem Prompt, einem Zeilenumbruch und dem
- * Anhangtext. Das Modell antwortet mit 0 oder 1. Ein vom Modell ausgegebener
- * Denkprozess (<think>…</think>) wird abgetrennt und in einer eigenen Spalte
+ * Anhangtext. Das Modell antwortet mit 0 oder 1. Qwen3 arbeitet standardmäßig
+ * mit einer Denkphase; deren Protokoll (<think>…</think> bzw. das Feld
+ * "thinking" der Ollama-Antwort) wird abgetrennt und in einer eigenen Spalte
  * gespeichert. Je Anhangangabe und Prompt erfolgt ein Aufruf.
  * (Bereinigte Fassung der Stapelverarbeitung der ursprünglich verwendeten
  * Web-Oberfläche; nur der Ollama-Weg.)
  *
  * Eingabe:  Excel-Tabelle, erste Zeile Spaltenköpfe, Anhangtext in Spalte B
  *           (Spalten: Firma | Anhangtext | Negatives Eigenkapital)
- * Prompts:  Verzeichnis mit einer .txt-Datei je Prompt (alphabetische Reihenfolge)
+ * Prompts:  Verzeichnis mit einer .txt-Datei je Prompt (alphabetische Reihenfolge).
+ *           Zeilen, die mit # beginnen, sind Kommentare und werden nicht an das
+ *           Modell geschickt. Enthält eine Datei keinen Prompt-Text, bricht das
+ *           Skript ab (die Volltexte der finalen Stufe-1-Prompts sind nicht
+ *           erhalten; siehe README).
  * Ausgabe:  Excel-Tabelle = Eingabespalten + je Prompt Antwort und Denkprozess
  *
  * Aufruf:
- *   node 02_klassifikation_stufe1_qwen/klassifikation_stufe1.js --modell <ollama-modell>
+ *   node 02_klassifikation_stufe1_qwen/klassifikation_stufe1.js [--modell qwen3:8b]
  *        [--eingabe data/anhangangaben.xlsx] [--prompts prompts/stufe1_qwen]
  *        [--ausgabe output/stufe1_klassifikation.xlsx]
  *        [--temperatur 0.7] [--system <datei>] [--limit <n>]
@@ -32,6 +38,7 @@ const SAVE_EVERY = 25;          // Zwischenstand alle n Anhangangaben speichern
 
 function parseArgs(argv) {
     const args = {
+        modell: 'qwen3:8b', // im Beitrag verwendetes Modell
         eingabe: 'data/anhangangaben.xlsx',
         prompts: 'prompts/stufe1_qwen',
         ausgabe: 'output/stufe1_klassifikation.xlsx',
@@ -52,22 +59,33 @@ function parseArgs(argv) {
         }
     }
     if (!args.modell) {
-        console.error('Bitte das Ollama-Modell angeben, z. B. --modell qwen2.5:14b');
+        console.error('Bitte das Ollama-Modell angeben, z. B. --modell qwen3:8b');
         process.exit(1);
     }
     return args;
 }
 
+// Prompt-Dateien einlesen; Zeilen, die mit # beginnen, sind Kommentare
 function loadPrompts(dir) {
     const files = fs.readdirSync(dir).filter((f) => f.endsWith('.txt')).sort();
-    return files.map((file) => {
-        const text = fs.readFileSync(path.join(dir, file), 'utf-8').replace(/\r\n/g, '\n').trim();
-        if (text.startsWith('# PLATZHALTER')) {
-            console.error(`${path.join(dir, file)} enthält noch keinen Prompt-Text (Platzhalter).`);
-            process.exit(1);
-        }
-        return { name: path.basename(file, '.txt'), text };
+    if (files.length === 0) {
+        console.error(`Im Verzeichnis ${dir} liegt keine Prompt-Datei (.txt).`);
+        process.exit(1);
+    }
+    const prompts = files.map((file) => {
+        const raw = fs.readFileSync(path.join(dir, file), 'utf-8').replace(/^\uFEFF/, '').replace(/\r\n/g, '\n');
+        const text = raw.split('\n').filter((line) => !line.startsWith('#')).join('\n').trim();
+        return { name: path.basename(file, '.txt'), file: path.join(dir, file), text };
     });
+    const empty = prompts.filter((p) => !p.text);
+    if (empty.length > 0) {
+        console.error('Folgende Prompt-Dateien enthalten keinen Prompt-Text, sondern nur Kommentarzeilen (#):');
+        for (const p of empty) console.error(`  ${p.file}`);
+        console.error('Die Volltexte der im Beitrag verwendeten Stufe-1-Prompts sind nicht erhalten (siehe README, Abschnitt Stufe 1).');
+        console.error('Bitte in jede dieser Dateien unterhalb der Kommentarzeilen einen eigenen Prompt einfügen und das Skript erneut starten.');
+        process.exit(1);
+    }
+    return prompts;
 }
 
 // Denkprozess (<think>…</think>) von der eigentlichen Antwort trennen
@@ -88,7 +106,13 @@ async function callOllama(model, messages, temperature) {
         body: JSON.stringify({ model, messages, stream: false, options: { temperature } })
     });
     const data = await response.json();
-    return data?.message?.content || '';
+    if (!response.ok || data?.error) {
+        throw new Error(data?.error || `HTTP ${response.status}`);
+    }
+    const content = data?.message?.content || '';
+    // Neuere Ollama-Versionen liefern die Denkphase getrennt im Feld "thinking"
+    const thinking = data?.message?.thinking || '';
+    return thinking ? `<think>${thinking}</think>${content}` : content;
 }
 
 const truncateCell = (value) => {
@@ -130,7 +154,7 @@ async function main() {
             try {
                 answer = await callOllama(args.modell, messages, args.temperatur);
             } catch (err) {
-                answer = `Error: ${String(err)}`;
+                answer = `Error: ${err?.message || String(err)}`;
             }
             const { final, thinking } = parseThinking(answer);
             outRow.push(truncateCell(final), truncateCell(thinking));

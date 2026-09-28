@@ -1,3 +1,13 @@
-# PLATZHALTER – Prompt-Volltext vor der Veröffentlichung einfügen (diese Zeilen ersetzen).
-# Merkmal: Patronats- bzw. Haftungserklärung Dritter (Ergebnisspalte „Patronatserklärung“)
-# Erhaltener Anfang des Prompts: „Lies den folgenden Anhangtext und prüfe: Wird eine…“
+# Stufe 1, Merkmal „Patronatserklärung“: Patronats- bzw. Haftungserklärungen Dritter
+# Antwortformat: 0 oder 1
+#
+# Hinweis: Der Volltext des finalen Prompts (Lauf vom 31.08.2025) wurde von der
+# Klassifikationsanwendung nicht archiviert; er wird nicht nachträglich rekonstruiert.
+# Erhalten ist der Anfang des Prompts, nämlich die ersten 50 Zeichen, die die Anwendung
+# als Spaltenkopf in die Ergebnisdatei geschrieben hat ([…] = nicht erhaltener Rest):
+#   „Lies den folgenden Anhangtext und prüfe: Wird eine[…]“
+# Bekannt sind außerdem das Merkmal und das Antwortformat (0 oder 1).
+#
+# Zeilen, die mit # beginnen, sind Kommentare und werden nicht an das Modell geschickt.
+# Für einen eigenen Lauf den eigenen Prompt-Text unterhalb dieser Zeilen einfügen;
+# solange die Datei nur Kommentarzeilen enthält, bricht das Skript mit einem Hinweis ab.
