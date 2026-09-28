@@ -4,6 +4,8 @@
 > It documents how structured annual accounts were retrieved from the Austrian commercial register's High-Value Dataset (HVD) and how the § 225 (1) UGB notes on negative equity were analysed in three LLM stages (Qwen3 8B, `qwen3:8b`, run locally via Ollama; GPT-5.2 and text-embedding-ada-002 via Azure OpenAI).
 > The full texts of the seven final Stage 1 prompts were not archived; only their first 50 characters survive (see section „Stufe 1“).
 > The repository contains code and prompts only: no data and no results.
+>
+> *Note: AI was used in conducting this research project.*
 
 ## Zweck
 
@@ -17,6 +19,8 @@ Dieses Repository ist der Begleitcode zur Beitragsserie „Anhangangaben zum neg
 - Zugangsschlüssel: Sie sind nur als Platzhalter in `.env.example` hinterlegt.
 
 Die Skripte sind bereinigte Fassungen der verwendeten Skripte. Versuchszweige, Auswertungen, lokale Pfade und Zugangsdaten wurden entfernt. Die Prompts in `prompts/` sind die deutschsprachigen Originale. Ausgenommen sind die sieben Prompts des finalen Stufe-1-Laufs: Ihre Volltexte sind nicht erhalten (siehe Stufe 1).
+
+**Hinweis:** Bei der Durchführung dieses Forschungsprojekts wurde KI eingesetzt.
 
 ## Analyseweg im Überblick
 
